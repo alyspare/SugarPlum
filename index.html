@@ -1471,6 +1471,43 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2
   .jc-cal .pv-mini .pv-cell.top5::after,.jc-cal .pv-mini .pv-cell.cutoff::after{display:none}
 }
 
+/* ---- glowing pink hearts, top right of every page ---- */
+.j-hh{position:relative}
+.j-hh > *:not(.jh-sky){position:relative;z-index:1}
+.jh-sky{position:absolute;top:0;right:0;width:min(440px,46%);height:max(100%,200px);pointer-events:none;z-index:0}
+.j-hh-low .jh-sky{right:260px;top:8px;width:320px;height:140px}
+@media (min-width:701px) and (max-width:1000px){
+  .j-hh-low{padding-top:96px}
+  .j-hh-low .jh-sky{right:0;top:6px;width:340px;height:150px;transform:scale(.56);transform-origin:top right}
+}
+.j-hh-low .jh-3,.j-hh-low .jh-6,.j-hh-low .jh-s3{display:none}
+.jh{position:absolute;height:auto;overflow:visible;filter:drop-shadow(0 0 6px rgba(255,170,190,.9)) drop-shadow(0 0 18px rgba(246,147,150,.6))}
+.jh-o{filter:drop-shadow(0 0 5px rgba(255,190,205,.85))}
+.jh-1{right:8%;top:22px;width:86px;animation:jhb 4.2s ease-in-out infinite}
+.jh-2{right:25%;top:12px;width:34px;transform:rotate(-14deg)}
+.jh-3{right:1%;top:112px;width:30px;transform:rotate(13deg)}
+.jh-4{right:22%;top:80px;width:42px;transform:rotate(9deg)}
+.jh-5{right:36%;top:54px;width:20px;transform:rotate(-10deg)}
+.jh-6{right:15%;top:140px;width:16px;transform:rotate(-6deg)}
+.jh-7{right:2%;top:12px;width:22px;transform:rotate(16deg)}
+.jh-sp{position:absolute;width:4px;height:4px;border-radius:50%;background:#FFF1F4;box-shadow:0 0 8px 3px rgba(255,186,204,.85);animation:jht 3.6s ease-in-out infinite}
+.jh-s1{right:31%;top:28px}.jh-s2{right:5%;top:92px;animation-delay:1.1s}.jh-s3{right:29%;top:126px;animation-delay:2.1s}.jh-s4{right:17%;top:8px;animation-delay:.6s}.jh-s5{right:40%;top:98px;width:3px;height:3px;animation-delay:1.7s}
+@keyframes jhb{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes jht{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.jh-1,.jh-sp{animation:none}}
+@media (max-width:700px){
+  /* iPhone: the hearts get their own band along the top right, clear of the title and buttons */
+  .jh-sky,.j-hh-low .jh-sky{right:0;top:6px;width:62%;height:52px}
+  .j-hh-low{padding-top:62px}
+  .jh-1{right:4%;top:0;width:40px}
+  .jh-2{right:31%;top:8px;width:16px}
+  .jh-3,.j-hh-low .jh-3{display:block;right:21%;top:22px;width:13px}
+  .jh-4{right:44%;top:18px;width:18px}
+  .jh-7{right:0;top:25px;width:12px}
+  .jh-5,.jh-6,.jh-s3,.jh-s5{display:none}
+  .jh-s1{right:54%;top:8px}.jh-s2{right:16%;top:2px}.jh-s4{right:28%;top:38px}
+}
+
 </style>
 </head>
 <body class="journal">
@@ -1547,10 +1584,10 @@ var KINDS = {
   dentry:{label:'Dating entry', code:'DATING'}, checkin:{label:'Check-in', code:'CHECK-IN'}
 };
 var DZ_TYPES = ['In-Person','Text','Phone Call','FaceTime','Socials'];
-var DZ_NEG = ['No Text Back','No Show','Cut Off','Cold Shoulder'];
-var DZ_MARKS = ['No Text Back','No Show','Cut Off','Cold Shoulder','Energy Shift','Last Time Seen','Last Time Spoken','Date','Gifts Given','Gifts Received','Red Light Special'];
-var DZ_FEEL = [['Smitten','🥰'],['Happy','😊'],['Excited','🤩'],['Butterflies','🦋'],['Calm','😌'],['Safe','🫶'],['Hopeful','🤞'],['Neutral','😐'],['Unsure','🤔'],
-  ['Awkward','😬'],['Anxious','😟'],['Confused','😕'],['Disappointed','😞'],['Annoyed','🙄'],['Frustrated','😤'],['Sad','😢'],['Hurt','💔'],['Bored','😴']];
+var DZ_NEG = ['No Text Back','No Show','Cut Off','Cold Shoulder','Overextending'];
+var DZ_MARKS = ['No Text Back','No Show','Cut Off','Cold Shoulder','Energy Shift','Overextending','Last Time Seen','Last Time Spoken','Date','Vulnerability','Building Trust','Gifts Given','Gifts Received','Red Light Special'];
+var DZ_FEEL = [['In Love','😍'],['Smitten','🥰'],['Sexy','💋'],['Flirty','😘'],['Thrilling','⚡'],['Happy','😊'],['Excited','🤩'],['Butterflies','🦋'],['Calm','😌'],['Safe','🫶'],['Hopeful','🤞'],['Neutral','😐'],['Tired','🥱'],['Unsure','🤔'],
+  ['Awkward','😬'],['Unamused','😒'],['Anxious','😟'],['Confused','😕'],['Disappointed','😞'],['Annoyed','🙄'],['Frustrated','😤'],['Sad','😢'],['Hurt','💔'],['Bored','😴']];
 var DZ_WHO = [], DZ_DATE = '';
 /* the write-up under each entry (Dating Journal); every one is optional */
 var DZ_DETAILS = [['dMoment','The moment','Where you were and what you did'],['dTalk','What we talked about','Topics, plans, inside jokes'],['dFelt','How I felt','In the moment and after'],['dLearn','What I learned about him','Something new about who he is'],['dGreen','Green flags','What felt right'],['dWatch','Things to watch','Anything that gave you pause'],['dGifts','Gifts given or received','What, and how it landed'],['dFav','Favorite moment or quote','The line or moment you want to keep'],['dNext','Next time','What to ask, try or remember']];
@@ -5307,9 +5344,19 @@ function renderNotices(){
 }
 function pageHTML(id){
   TOP5 = {};
-  if(id === 'backlog') return jBacklog();
-  if(id.indexOf('p-') === 0){ var p = dzPerson(id.slice(2)); if(p) return JSUB === 'story' ? jStory(p) : jChapter(p); }
-  return jHome();
+  var h, low = false;
+  if(id === 'backlog') h = jBacklog();
+  else if(id.indexOf('p-') === 0 && dzPerson(id.slice(2))){ var p = dzPerson(id.slice(2)); h = JSUB === 'story' ? jStory(p) : jChapter(p); }
+  else { h = jHome(); low = true; }
+  /* glowing pink hearts in the top right of every page */
+  return h.replace(/<header class="page-head([^"]*)">/, function(m, c){ return '<header class="page-head' + c + ' j-hh' + (low ? ' j-hh-low' : '') + '">' + jHearts(); });
+}
+function jHearts(){
+  var H = 'M12 21.2C5.4 16.9 1.8 13.3 1.8 8.9 1.8 5.9 4.1 3.6 7 3.6c2.1 0 3.9 1.1 5 3 1.1-1.9 2.9-3 5-3 2.9 0 5.2 2.3 5.2 5.3 0 4.4-3.6 8-10.2 12.3z';
+  function heart(n, solid){ return '<svg class="jh jh-' + n + (solid ? '' : ' jh-o') + '" viewBox="0 0 24 24">' + (solid ? '<path d="' + H + '" fill="url(#jh-g)"/><ellipse cx="7.4" cy="8.2" rx="2.3" ry="1.5" fill="#fff" opacity=".55" transform="rotate(-32 7.4 8.2)"/>' : '<path d="' + H + '" fill="none" stroke="#FFD3DC" stroke-width="1.5"/>') + '</svg>'; }
+  return '<div class="jh-sky" aria-hidden="true"><svg width="0" height="0" style="position:absolute"><defs><linearGradient id="jh-g" x1="0" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="#FFD9E1"/><stop offset=".5" stop-color="#F9A3AE"/><stop offset="1" stop-color="#F07C92"/></linearGradient></defs></svg>' +
+    heart(1, true) + heart(2, true) + heart(3, true) + heart(4, false) + heart(5, false) + heart(6, true) + heart(7, false) +
+    '<i class="jh-sp jh-s1"></i><i class="jh-sp jh-s2"></i><i class="jh-sp jh-s3"></i><i class="jh-sp jh-s4"></i><i class="jh-sp jh-s5"></i></div>';
 }
 
 /* ---------- 01 dating ---------- */
@@ -5513,8 +5560,12 @@ var BL_SUG = {
     ['Cut Off', /\b(cut(ting)? (him|me|her|them|things) off|cut(ting)? off (him|me|her|them|things|contact|communication)|cut ties|blocked (him|me|his number|my number))\b/i],
     ['Cold Shoulder', /\b(cold shoulder|ignor(ed|ing) me|acted (cold|distant)|(was|been|being|so) (cold|distant|dry) (to|with) me|dry (texts?|replies|responses))\b/i],
     ['Energy Shift', /\b(energy (shift(ed)?|changed|was off|felt off|felt different|was different)|vibe (shift(ed)?|changed|was off|felt off)|something (felt|was) off|shift in (his|the|our) energy)\b/i],
+    ['Overextending', /\b(over-?extend(ed|ing)?|bent over backwards|doing too much|did too much|went (way )?out of my way|giving (way )?too much|gave (way )?too much)\b/i],
+    ['Vulnerability', /\b(vulnerab(le|ility)|opened up|open up to|let my guard down|let him in)\b/i],
+    ['Building Trust', /\b(building trust|build(ing)? trust|trust(ing)? him more|earn(ed|ing)? (my|his) trust|starting to trust)\b/i],
     ['Date', /\b(our date|a date|first date|date night|dinner date|on a date)\b/i], ['Gifts Received', /\b(he (got|bought|gave) me (?!the cold|the silent|attitude|a hard time|space|a look)|brought me (flowers|a gift))/i], ['Gifts Given', /\bi (got|bought|gave) him\b/i]],
-  feelings:[['Confused', /\bconfus(ed|ing|ion)\b/i], ['Happy', /\bhappy\b/i], ['Excited', /\bexcited\b/i], ['Butterflies', /\bbutterflies\b/i], ['Calm', /\bcalm\b/i], ['Safe', /\bsafe\b/i], ['Hopeful', /\bhopeful\b/i],
+  feelings:[['In Love', /\b(in love|falling for him|fell for him)\b/i], ['Sexy', /\b(sexy|felt hot|so hot)\b/i], ['Flirty', /\b(flirt(y|ed|ing)?)\b/i], ['Thrilling', /\b(thrill(ed|ing)?|exhilarat(ed|ing))\b/i], ['Tired', /\b(tired|exhausted|drained|worn out)\b/i], ['Unamused', /\b(unamused|not amused|wasn'?t amused)\b/i],
+    ['Confused', /\bconfus(ed|ing|ion)\b/i], ['Happy', /\bhappy\b/i], ['Excited', /\bexcited\b/i], ['Butterflies', /\bbutterflies\b/i], ['Calm', /\bcalm\b/i], ['Safe', /\bsafe\b/i], ['Hopeful', /\bhopeful\b/i],
     ['Unsure', /\bunsure\b/i], ['Awkward', /\bawkward\b/i], ['Anxious', /\b(anxious|anxiety)\b/i], ['Disappointed', /\bdisappoint(ed|ing)\b/i], ['Annoyed', /\bannoy(ed|ing)\b/i], ['Frustrated', /\bfrustrat(ed|ing)\b/i], ['Sad', /\bsad\b/i], ['Hurt', /\bhurt\b/i], ['Smitten', /\bsmitten\b/i]]
 };
 function blMentions(text){
